@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+	<title>Local Control</title>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	
+	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/uikit@3.4.1/dist/css/uikit.min.css' />
+	<style>
+		.switch {
+			position: relative;
+			display: inline-block;
+			width: 36px;
+			height: 22px;
+		}
+		
+		.switch input { 
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+		
+		.slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #ccc;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+		
+		.slider:before {
+			position: absolute;
+			content: '';
+			height: 16px;
+			width: 16px;
+			left: 3px;
+			bottom: 3px;
+			background-color: white;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+		
+		input:checked + .slider {
+			background-color: #2196F3;
+		}
+		
+		input:focus + .slider {
+			box-shadow: 0 0 1px #2196F3;
+		}
+		
+		input:checked + .slider:before {
+			-webkit-transform: translateX(15px);
+			-ms-transform: translateX(15px);
+			transform: translateX(15px);
+		}
+		
+		/* Rounded sliders */
+		.slider.round {
+			border-radius: 22px;
+		}
+		
+		.slider.round:before {
+			border-radius: 50%;
+		}
+	</style>
+</head>
+<body class='uk-background-secondary'>
+	<!--Block Content-->
+	<div id='home' class='uk-container uk-container-small' uk-height-viewport>
+		<div class='uk-grid-0' uk-grid uk-height-viewport>
+			<div class='uk-width-1-4@m'></div>
+			<div class='uk-width-1-2@m uk-flex uk-flex-middle'>
+				<div class='uk-card uk-card-default uk-width-1-1'>
+					<div class='uk-card-body'>
+						<ul id='uk-tab' class='uk-flex-center' uk-tab>
+							<li><a href='#'>Búsqueda</a></li>
+							<li><a>Resultados</a></li>
+						</ul>
+						<ul class='uk-switcher'>
+							<li>
+								<!--h3 class='uk-card-title uk-text-center'>Dispositivos</h3>-->
+								<form @submit.prevent="search" class="uk-form-stacked">
+									<div class="uk-margin">
+										<label class="uk-form-label" for="document">Documento de identificación</label>
+										<div class="uk-form-controls">
+											<div class="uk-inline uk-width-6">
+												<a class="uk-form-icon uk-form-icon-flip" uk-icon="icon: search"></a>
+												<input v-model="document" class="uk-input" id="document" type="number" placeholder="Número de identificación">
+										  	</div>
+										</div>
+										<div class="uk-margin-small-top">
+											<button class="uk-button uk-button-primary uk-align-right uk-margin-remove-bottom">Buscar</button>
+										</div>
+									</div>
+								</form>	
+							</li>
+							<li>
+								<h3 class='uk-card-title uk-text-center'>Fichas disponibles</h3>
+								<div class="uk-text-small">
+									<span class="uk-text-secondary">Nombre: </span>{{user.name}}
+									<br>
+									<span class="uk-text-secondary">Documento: </span>{{user.document}}
+								</div>
+								<div class="uk-margin">
+									<label class="uk-form-label" for="form-stacked-select">Seleccione una ficha para mostrar</label>
+									<div class="event">
+										<select class="uk-select" id="event" v-model="event">
+											<option v-for="row, index in filter" :value="row.index" :key="index">{{row.event}} ({{row.date}})</option>
+										</select>
+									</div>
+								</div>
+								<div class='uk-text-center'>
+									<button class='uk-button uk-button-primary' :disabled="(event == null) ? true:false" @click="view">Visualizar</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--Block js-->
+	<script src='https://cdn.jsdelivr.net/npm/uikit@3.4.1/dist/js/uikit.min.js'></script>
+	<script src='https://cdn.jsdelivr.net/npm/uikit@3.4.1/dist/js/uikit-icons.min.js' ></script>
+	<script src='https://code.jquery.com/jquery-3.5.0.min.js'></script>
+	<script src='https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.2.0/jspdf.umd.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/img_datosBasicos.js"></script>
+	<script src="js/img_346.js"></script>
+	<script src="js/config.js"></script>
+	<script>
+		UIkit.tab('#uk-tab')
+		const { jsPDF } = window.jspdf
+		const home = new Vue({
+			el: '#home',
+			created(){
+				request({
+					url: 'http://gsx2json.com/api?id=14cp7ekvPcSoS_hQkSJ_9BTekfS3wjCi-SdMEikXTz1U&sheet=1'
+				}, (data) => {
+					data.rows.forEach((row) => {
+						this.data.push(JSON.stringify(row))
+					})
+					console.log('Ready')
+				})
+			},
+			data: {
+				document: null,
+				event: null,
+				filter: [],
+				data: [],
+				user: {}
+			},
+			methods: {
+				search(){
+					this.filter = []
+					this.user = {}
+					this.data.forEach((row, index) => {
+						const json = JSON.parse(row)
+						if (json.númerodeidentificación == this.document){
+							if(!this.user.ducument) this.user = {
+								name: `${json['nombres']} ${json['apellidos']}`,
+								document: `${documentType(json['tipodedocumento'])} - ${json['númerodeidentificación']}`
+							}
+							const data = formatDate(json['marcatemporal'].split(' ').shift())
+							this.filter.push({
+								date: data.format('DD/MM/yyyy'),
+								event: json['seleccionefichaadiligenciar'],
+								index
+							})
+						}
+					})
+					if(this.filter.length == 0){
+						alert('No hay resultados')
+						this.user = {}
+						this.event = null
+					}
+					else{
+						this.document = null
+						UIkit.tab('#uk-tab').show(1)
+					}
+				},
+				view(){
+					const doc = new jsPDF({
+						orientation: "portrait",
+						unit: "mm",
+						format: [215.9, 279.4]
+						//format: [216, 330]
+					});
+					doc.addImage(basic, 'JPEG', 0, 0, 215.9, 279.4)
+					doc.setFontSize(11)
+					const _data = JSON.parse(this.data[this.event])
+					datos_basicos(_data).forEach((item) => {
+						doc.text(item.text, item.x, item.y, {charSpace: item.charSpace || 0})
+					})
+					if(_data['seleccionefichaadiligenciar'].split(' - ').shift() == '346'){
+						doc.addPage([216, 330], 'p')
+						doc.addImage(_346, 'JPEG', 0, 0, 216, 330)
+						ficha_346(_data).forEach((item) => {
+							doc.text(item.text, item.x, item.y, {charSpace: item.charSpace || 0})
+						})
+					}
+					//doc.save(`${this.user.name}.pdf`);
+					window.open(doc.output('bloburl'))
+				}
+			}
+		})
+	</script>
+</body>
+</html>
