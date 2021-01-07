@@ -302,7 +302,7 @@ function datos_basicos(row){
 }
 
 function ficha_346(row){
-	return [
+	let data = [
 		{
 			text: `${row['nombres']} ${row['apellidos']}`,
 			x: 10,
@@ -349,4 +349,61 @@ function ficha_346(row){
 			y: coordenate(13, row['tuvocontactoestrechoenlosúltimos14díasconuncasoprobableoconfirmadoconinfecciónrespiratoriaagudagraveporvirusnuevo']).y
 		}
 	]
+	let other = ''
+	row['reportaalgunodelossiguientessíntomas'].split(',').forEach((item, index) => {
+		if(coordenate(14, item.trim()).default) {
+			console.log(item)
+			other += item
+			console.log(other)
+			if(row['reportaalgunodelossiguientessíntomas'].split(',').length != index+1){
+				other += ', '
+			} else {
+				data.push({
+					text: 'x',
+					x: coordenate(14, item.trim()).x,
+					y: coordenate(14, item.trim()).y
+				})
+				data.push({
+					text: other,
+					x: 120,
+					y: 132
+				})
+			}
+		} else {
+			data.push({
+				text: 'x',
+				x: coordenate(14, item.trim()).x,
+				y: coordenate(14, item.trim()).y
+			})
+		}
+	})
+	other = ''
+	row['reportaalgunodelossiguientesantecedentesclínicos'].split(',').forEach((item, index) => {
+		if(coordenate(15, item.trim()).default) {
+			console.log(item)
+			other += item
+			console.log(other)
+			if(row['reportaalgunodelossiguientesantecedentesclínicos'].split(',').length != index+1){
+				other += ', '
+			} else {
+				data.push({
+					text: 'x',
+					x: coordenate(15, item.trim()).x,
+					y: coordenate(15, item.trim()).y
+				})
+				data.push({
+					text: other,
+					x: 128,
+					y: 164
+				})
+			}
+		} else {
+			data.push({
+				text: 'x',
+				x: coordenate(15, item.trim()).x,
+				y: coordenate(15, item.trim()).y
+			})
+		}
+	})
+	return data
 }

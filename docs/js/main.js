@@ -361,5 +361,165 @@ function coordenate(type, data){
 					break
 			}
 			break
+		case 14: // síntomas
+			switch (data){
+				case 'Tos':
+					return {
+						x: 10.2,
+						y: 120
+					}
+					break
+				case 'Fiebre':
+					return {
+						x: 26.5,
+						y: 120
+					}
+					break
+				case 'Dolor de garganta':
+					return {
+						x: 47.2,
+						y: 120
+					}
+					break
+				case 'Dificultad respiratoria':
+					return {
+						x: 95.8,
+						y: 120
+					}
+					break
+				case 'Fatiga o adinamia':
+					return {
+						x: 130.2,
+						y: 120
+					}
+					break
+				case 'Rinorrea':
+					return {
+						x: 166.5,
+						y: 120
+					}
+					break
+				case 'Conjuntivitis':
+					return {
+						x: 186,
+						y: 120
+					}
+					break
+				case 'Cefalea':
+					return {
+						x: 10.2,
+						y: 129
+					}
+					break
+				case 'Diarrea':
+					return {
+						x: 34.5,
+						y: 129
+					}
+					break
+				case 'Pérdida del olfato o del gusto':
+					return {
+						x: 60.4,
+						y: 129
+					}
+					break
+				default:
+					return {
+						x: 105,
+						y: 129,
+						default: true
+					}
+					break
+			}
+			break
+		case 15:
+			switch (data){
+				case 'Asma':
+					return {
+						x: 9,
+			y: 154
+					}
+					break
+				case 'EPOC':
+					return {
+						x: 30,
+			y: 154
+					}
+					break
+				case 'Diabetes':
+					return {
+						x: 51.5,
+			y: 154
+					}
+					break
+				case 'VIH':
+					return {
+						x: 77.8,
+			y: 154
+					}
+					break
+				case 'Enfermedad cardiaca':
+					return {
+						x: 94.7,
+			y: 154
+					}
+					break
+				case 'Cáncer':
+					return {
+						x: 121,
+			y: 154
+					}
+					break
+				case 'Malnutrición':
+					return {
+						x: 139,
+			y: 154
+					}
+					break
+				case 'Obesidad':
+					return {
+						x: 164.4,
+			y: 154
+					}
+					break
+				case 'Insuficiencia renal':
+					return {
+						x: 187.4,
+			y: 154
+					}
+					break
+				case 'Toma de medicamentos inmunosupresores':
+					return {
+						x: 9,
+			y: 162.2
+					}
+					break
+				case 'Fumador':
+					return {
+						x: 42,
+			y: 162.2
+					}
+					break
+				case 'Hipertensión':
+					return {
+						x: 63,
+			y: 162.2
+					}
+					break
+				case 'Tuberculosis':
+					return {
+						x: 87,
+			y: 162.2
+					}
+					break
+				default:
+					return {
+						x: 113,
+			y: 162.2,
+						default: true
+					}
+					break
+			}
+			break
 	}
 }
