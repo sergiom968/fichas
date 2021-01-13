@@ -281,6 +281,40 @@ function coordenate(type, data){
 					break
 			}
 			break
+		case 7: // clasificación de caso
+			switch (data){
+				case 'Sospechoso':
+					return {
+						x: 128.5,
+						y: 212.5
+					}
+					break
+				case 'Probable':
+					return {
+						x: 128.5,
+						y: 216
+					}
+					break
+				case 'Confirmado por laboratorio':
+					return {
+						x: 148.2,
+						y: 212.5
+					}
+					break
+				case 'Confirmado por clínica':
+					return {
+						x: 148.2,
+						y: 216
+					}
+					break
+				case 'Confirmado por nexo epidemiológico':
+					return {
+						x: 148.2,
+						y: 219.2
+					}
+					break
+			}
+			break
 		case 9:
 			switch (data){
 				case 'Sí':
@@ -432,7 +466,7 @@ function coordenate(type, data){
 					break
 			}
 			break
-		case 15:
+		case 15: // antecedentes
 			switch (data){
 				case 'Asma':
 					return {

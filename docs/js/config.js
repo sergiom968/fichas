@@ -229,8 +229,8 @@ function datos_basicos(row){
 		},
 		{
 			text: 'x',
-			x: 128.5,
-			y: 212.5
+			x: coordenate(7, row['clasificacióndelcaso']).x,
+			y: coordenate(7, row['clasificacióndelcaso']).y
 		},
 		{
 			text: 'x',
