@@ -49,8 +49,12 @@ function optional(entry){
 	else return entry
 }
 
+function capitalize(entry) {
+	entry = entry.toLowerCase()
+	return entry.charAt(0).toUpperCase() + entry.slice(1)
+}
+
 function formatDate(date){
-	console.log(date)
 	let $date = date.split('/')
 	$date[0] = ($date[0].length == 1) ? `0${$date[0]}` : $date[0]
 	$date = $date.reverse().join('-')

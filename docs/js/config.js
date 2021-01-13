@@ -122,7 +122,7 @@ function datos_basicos(row){
 			y: 128
 		},
 		{
-			text: `${row['departamentodeocurrencia']}/${row['municipiodeocurrencia']}`,
+			text: `${capitalize(row['departamentoderesidencia'])}/${capitalize(row['municipioderesidencia'])}`,
 			x: 76,
 			y: 128
 		},
@@ -182,7 +182,7 @@ function datos_basicos(row){
 			y: 190.5
 		},
 		{
-			text: `${row['paísderesidencia']}/${row['departamentoderesidencia']}/${row['municipioderesidencia']}`,
+			text: `${capitalize(row['paísderesidencia'])}/${capitalize(row['departamentoderesidencia'])}/${capitalize(row['municipioderesidencia'])}`,
 			x: 68,
 			y: 197
 		},
