@@ -1,4 +1,26 @@
 function datos_basicos(row){
+	console.log(row)
+	let eps = row['eps']
+	let eps_code = (eps.split(' | ').length == 1) ? '' : eps.split(' | ').pop()
+	eps = eps.split(' | ').shift()
+	let rise_country = row['paísdeorigen'].toString()
+	let rise_country_code = (rise_country.toLowerCase() == 'colombia') ? '170' : ''
+	let residence_country = row['paísderesidencia'].toString()
+	let residence_country_code = (rise_country.toLowerCase() == 'colombia') ? '170' : ''
+	let occurrence_country = row['paísdeocurrencia'].toString()
+	let occurrence_country_code = (occurrence_country.toLowerCase() == 'colombia') ? '170' : ''
+	let residence_city = ''
+	Object.keys(row).forEach((key) => {
+		if(key.indexOf('municipioderesidencia') >= 0 && row[key] != 0) residence_city = row[key] 
+  	})
+	let residence_city_code = (residence_city.split(' | ').length == 1) ? '' : residence_city.split(' | ').pop()
+	residence_city = (residence_city.split(' | ').length == 1) ? residence_city : residence_city.split(' | ')[0]
+	let residence_department = row['departamentoderesidencia']
+	let residence_department_code = (residence_department.split(' | ').length == 1) ? '' : residence_department.split(' | ').pop()
+	residence_department = residence_department.split(' | ').shift()
+	let occurrence_department = row['departamentodeocurrencia']
+	let occurrence_department_code = (occurrence_department.split(' | ').length == 1) ? '' : occurrence_department.split(' | ').pop()
+	occurrence_department = occurrence_department.split(' | ').shift()
 	return [
 		{
 			text: '15',
@@ -65,7 +87,7 @@ function datos_basicos(row){
 		},
 		{
 			text: row['númerodeidentificación'].toString(),
-			x: 102,
+			x: 136,
 			y: 88
 		},
 		{
@@ -112,19 +134,37 @@ function datos_basicos(row){
 			charSpace: 3.5
 		},
 		{
-			text: row['paísdeorigen'].toString(),
+			text: rise_country_code,
+			x: 195,
+			y: 109,
+			charSpace: 2.8
+		},
+		{
+			text: rise_country,
 			x: 175,
 			y: 116
 		},
 		{
-			text: row['paísdeocurrencia'],
+			text: occurrence_country,
 			x: 8,
 			y: 128
 		},
 		{
-			text: `${capitalize(row['departamentoderesidencia'])}/${capitalize(row['municipioderesidencia'])}`,
+			text: occurrence_country_code,
+			x: 57,
+			y: 124,
+			charSpace: 3.2
+		},
+		{
+			text: `${occurrence_department}/${capitalize(row['municipiodeocurrencia'])}`,
 			x: 76,
 			y: 128
+		},
+		{
+			text: occurrence_department_code,
+			x: 123,
+			y: 127,
+			charSpace: 3.2
 		},
 		{
 			text: 'x',
@@ -162,9 +202,15 @@ function datos_basicos(row){
 			y: coordenate(5, row['régimen']).y
 		},
 		{
-			text: row['eps'],
-			x: 142,
-			y: 153
+			text: eps,
+			x: 141,
+			y: 154.5
+		},
+		{
+			text: eps_code,
+			x: 175,
+			y: 150,
+			charSpace: 3.25
 		},
 		{
 			text: 'x',
@@ -182,9 +228,27 @@ function datos_basicos(row){
 			y: 190.5
 		},
 		{
-			text: `${capitalize(row['paísderesidencia'])}/${capitalize(row['departamentoderesidencia'])}/${capitalize(row['municipioderesidencia'])}`,
+			text: `${residence_country}/${residence_department}/${residence_city}`,
 			x: 68,
 			y: 197
+		},
+		{
+			text: residence_country_code,
+			x: 158,
+			y: 194.5,
+			charSpace: 3.5
+		},
+		{
+			text: residence_department_code,
+			x: 177,
+			y: 194.5,
+			charSpace: 3.5
+		},
+		{
+			text: residence_city_code,
+			x: 191,
+			y: 194.5,
+			charSpace: 3.5
 		},
 		{
 			text: row['direcciónderesidencia'],
@@ -302,21 +366,30 @@ function datos_basicos(row){
 }
 
 function ficha_346(row){
+	let department = row['departamento']
+	let department_code = (department.split(' | ').length == 1) ? '' : department.split(' | ').pop()
+	department = department.split(' | ').shift()
+	let sample = row['tipodemuestra'] || ''
+	let sample_code = (sample.split(' | ').length == 1) ? '' : sample.split(' | ').pop()
+	let proof = row['tipodepruebatomada'] || ''
+	let proof_code = (proof.split(' | ').length == 1) ? '' : proof.split(' | ').pop()
+	let outcome = row['resultado'] || ''
+	let outcome_code = (outcome.split(' | ').length == 1) ? '' : outcome.split(' | ').pop()
 	let data = [
 		{
 			text: `${row['nombres']} ${row['apellidos']}`,
 			x: 10,
-			y: 58
+			y: 53
 		},
 		{
 			text: documentType(row['tipodedocumento']),
 			x: 100,
-			y: 58
+			y: 53
 		},
 		{
 			text: row['númerodeidentificación'].toString(),
 			x: 120,
-			y: 58
+			y: 53
 		},
 		{
 			text: 'x',
@@ -334,19 +407,85 @@ function ficha_346(row){
 			y: (optional(row['lugardeviaje'] != '')) ? coordenate(12, row['lugardeviaje']).y : 0
 		},
 		{
-			text: (optional(row['departamento']) != '') ? `${row['departamento']}/${row['municipio']}` : '',
+			text: (optional(department) != '') ? `${department}/${row['municipio']}` : '',
 			x: 120,
-			y: 82
+			y: 75.5
+		},
+		{
+			text: department_code,
+			x: 174.5,
+			y: 71.8,
+			charSpace: 4
+
 		},
 		{
 			text: optional(row['país']),
 			x: 120,
-			y: 95.5
+			y: 88.3
 		},
 		{
 			text: 'x',
 			x: coordenate(13, row['tuvocontactoestrechoenlosúltimos14díasconuncasoprobableoconfirmadoconinfecciónrespiratoriaagudagraveporvirusnuevo']).x,
 			y: coordenate(13, row['tuvocontactoestrechoenlosúltimos14díasconuncasoprobableoconfirmadoconinfecciónrespiratoriaagudagraveporvirusnuevo']).y
+		},
+		{
+			text: (optional(row['hasidovacunadocontralacovid-19'] != '')) ? 'x' : '',
+			x: (optional(row['hasidovacunadocontralacovid-19'] != '')) ? coordenate(17, row['hasidovacunadocontralacovid-19']).x : 0,
+			y: (optional(row['hasidovacunadocontralacovid-19'] != '')) ? coordenate(17, row['hasidovacunadocontralacovid-19']).y : 0
+		},
+		{
+			text: (row['númerodedosis'] === 0) ? '' : row['númerodedosis'].toString(),
+			x: 82.5,
+			y: 237.5
+		},
+		{
+			text: (row['fechadeúltimadosis']) ? formatDate(row['fechadeúltimadosis']).format('DD') : '',
+			x: 100,
+			y: 237.5,
+			charSpace: 4.5
+		},
+		{
+			text: (row['fechadeúltimadosis']) ? formatDate(row['fechadeúltimadosis']).format('MM') : '',
+			x: 117,
+			y: 237.5,
+			charSpace: 4.5
+		},
+		{
+			text: (row['fechadeúltimadosis']) ? formatDate(row['fechadeúltimadosis']).format('YYYY') : '',
+			x: 133.5,
+			y: 237.5,
+			charSpace: 5
+		},
+		{
+			text: (row['nombredelavacuna'] === 0) ? '' : row['nombredelavacuna'].toString(),
+			x: 166,
+			y: 237.5
+		},
+		{
+			text: sample_code,
+			x: 98,
+			y: 270.2
+		},
+		{
+			text: proof_code,
+			x: 108,
+			y: 270.2
+		},
+		{
+			text: '2H',
+			x: 118.5,
+			y: 270.2
+		},
+		{
+			text: outcome_code,
+			x: 131,
+			y: 270.2
+		},
+		{
+			text: (row['fechadetomadelamuestra']) ? formatDate(row['fechadetomadelamuestra']).format('DD.MM.YYYY') : '',
+			x: 13.2,
+			y: 270.2,
+			charSpace: 1.75
 		}
 	]
 	let other = ''
@@ -366,7 +505,7 @@ function ficha_346(row){
 				data.push({
 					text: other,
 					x: 120,
-					y: 132
+					y: 122
 				})
 			}
 		} else {
@@ -394,7 +533,7 @@ function ficha_346(row){
 				data.push({
 					text: other,
 					x: 128,
-					y: 164
+					y: 150.5
 				})
 			}
 		} else {

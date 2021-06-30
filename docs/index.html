@@ -197,6 +197,7 @@
 					doc.setFontSize(11)
 					const _data = JSON.parse(this.data[this.event])
 					datos_basicos(_data).forEach((item) => {
+						//console.log(item)
 						doc.text(item.text, item.x, item.y, {charSpace: item.charSpace || 0})
 					})
 					if(_data['seleccionefichaadiligenciar'].split(' - ').shift() == '346'){

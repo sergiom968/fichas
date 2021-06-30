@@ -339,14 +339,14 @@ function coordenate(type, data){
 			switch (data){
 				case 'Sí':
 					return {
-						x: 25,
-						y: 86.2
+						x: 24,
+						y: 79.7
 					}
 					break
 				case 'No':
 					return {
-						x: 25,
-						y: 92.5
+						x: 24,
+						y: 85.8
 					}
 					break
 			}
@@ -355,14 +355,14 @@ function coordenate(type, data){
 			switch (data){
 				case 'Nacional':
 					return {
-						x: 70,
-						y: 81.5
+						x: 68.8,
+						y: 75.5
 					}
 					break
 				case 'Internacional':
 					return {
-						x: 93.3,
-						y: 81.2
+						x: 92.1,
+						y: 75.5
 					}
 					break
 			}
@@ -371,14 +371,14 @@ function coordenate(type, data){
 			switch (data){
 				case 'Nacional':
 					return {
-						x: 93.3,
-						y: 95.8
+						x: 92.1,
+						y: 88.3
 					}
 					break
 				case 'Internacional':
 					return {
-						x: 70,
-						y: 95.8
+						x: 68.8,
+						y: 88.3
 					}
 					break
 			}
@@ -387,14 +387,14 @@ function coordenate(type, data){
 			switch (data){
 				case "Sí":
 					return {
-						x: 179.5,
-						y: 105.5
+						x: 178.5,
+						y: 97.8
 					}
 					break
 				case 'No':
 					return {
-						x: 195.2,
-						y: 106
+						x: 194.2,
+						y: 97.8
 					}
 					break
 			}
@@ -403,68 +403,68 @@ function coordenate(type, data){
 			switch (data){
 				case 'Tos':
 					return {
-						x: 10.2,
-						y: 120
+						x: 8.7,
+						y: 110.6
 					}
 					break
 				case 'Fiebre':
 					return {
-						x: 26.5,
-						y: 120
+						x: 25,
+						y: 110.6
 					}
 					break
 				case 'Dolor de garganta':
 					return {
-						x: 47.2,
-						y: 120
+						x: 45.7,
+						y: 110.6
 					}
 					break
 				case 'Dificultad respiratoria':
 					return {
-						x: 95.8,
-						y: 120
+						x: 94.3,
+						y: 110.6
 					}
 					break
 				case 'Fatiga o adinamia':
 					return {
-						x: 130.2,
-						y: 120
+						x: 129,
+						y: 110.6
 					}
 					break
 				case 'Rinorrea':
 					return {
-						x: 166.5,
-						y: 120
+						x: 165,
+						y: 110.6
 					}
 					break
 				case 'Conjuntivitis':
 					return {
-						x: 186,
-						y: 120
+						x: 184.5,
+						y: 110.6
 					}
 					break
 				case 'Cefalea':
 					return {
-						x: 10.2,
-						y: 129
+						x: 8.7,
+						y: 118.8
 					}
 					break
 				case 'Diarrea':
 					return {
-						x: 34.5,
-						y: 129
+						x: 33,
+						y: 118.8
 					}
 					break
 				case 'Pérdida del olfato o del gusto':
 					return {
-						x: 60.4,
-						y: 129
+						x: 58.9,
+						y: 118.8
 					}
 					break
 				default:
 					return {
-						x: 105,
-						y: 129,
+						x: 103.5,
+						y: 118.8,
 						default: true
 					}
 					break
@@ -474,87 +474,109 @@ function coordenate(type, data){
 			switch (data){
 				case 'Asma':
 					return {
-						x: 9,
-			y: 154
+						x: 7.5,
+						y: 141.75
 					}
 					break
 				case 'EPOC':
 					return {
-						x: 30,
-			y: 154
+						x: 29,
+						y: 141.75
 					}
 					break
 				case 'Diabetes':
 					return {
-						x: 51.5,
-			y: 154
+						x: 50.5,
+						y: 141.75
 					}
 					break
 				case 'VIH':
 					return {
-						x: 77.8,
-			y: 154
+						x: 76.3,
+						y: 141.75
 					}
 					break
 				case 'Enfermedad cardiaca':
 					return {
-						x: 94.7,
-			y: 154
+						x: 93.3,
+						y: 141.5
 					}
 					break
 				case 'Cáncer':
 					return {
-						x: 121,
-			y: 154
+						x: 119.5,
+						y: 141.75
 					}
 					break
 				case 'Malnutrición':
 					return {
-						x: 139,
-			y: 154
+						x: 137.8,
+						y: 141.75
 					}
 					break
 				case 'Obesidad':
 					return {
-						x: 164.4,
-			y: 154
+						x: 162.9,
+						y: 141.75
 					}
 					break
 				case 'Insuficiencia renal':
 					return {
-						x: 187.4,
-			y: 154
+						x: 185.9,
+						y: 141.75
 					}
 					break
 				case 'Toma de medicamentos inmunosupresores':
 					return {
-						x: 9,
-			y: 162.2
+						x: 7.5,
+						y: 149.15
 					}
 					break
 				case 'Fumador':
 					return {
-						x: 42,
-			y: 162.2
+						x: 40.5,
+						y: 149.15
 					}
 					break
 				case 'Hipertensión':
 					return {
-						x: 63,
-			y: 162.2
+						x: 61.5,
+						y: 149.15
 					}
 					break
 				case 'Tuberculosis':
 					return {
-						x: 87,
-			y: 162.2
+						x: 85.5,
+						y: 149.15
 					}
 					break
 				default:
 					return {
-						x: 113,
-			y: 162.2,
+						x: 111.5,
+						y: 149.15,
 						default: true
+					}
+					break
+			}
+			break
+		case 17: // 
+			switch (data){
+				case 'Sí':
+					return {
+						x: 26,
+						y: 237.2
+					}
+					break
+				case 'No':
+					return {
+						x: 38,
+						y: 237.2
+					}
+					break
+				case 'Desconocido':
+					return {
+						x: 52.6,
+						y: 237.2
 					}
 					break
 			}
