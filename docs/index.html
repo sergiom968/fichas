@@ -197,14 +197,19 @@
 					doc.setFontSize(11)
 					const _data = JSON.parse(this.data[this.event])
 					datos_basicos(_data).forEach((item) => {
-						//console.log(item)
-						doc.text(item.text, item.x, item.y, {charSpace: item.charSpace || 0})
+						let _limit = limit(doc, item.text, item.limitChar)
+						let text = (item.limit) ? `${_limit[0]}${(_limit.length > 1) ? '...' : ''}` : item.text
+						doc.text(text, item.x, item.y, {
+							charSpace: item.charSpace || 0,
+						})
 					})
 					if(_data['seleccionefichaadiligenciar'].split(' - ').shift() == '346'){
 						doc.addPage([216, 330], 'p')
 						doc.addImage(_346, 'JPEG', 0, 0, 216, 330)
 						ficha_346(_data).forEach((item) => {
-							doc.text(item.text, item.x, item.y, {charSpace: item.charSpace || 0})
+							doc.text(item.text, item.x, item.y, {
+								charSpace: item.charSpace || 0,
+							})
 						})
 					}
 					//doc.save(`${this.user.name}.pdf`);

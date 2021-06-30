@@ -21,6 +21,18 @@ function datos_basicos(row){
 	let occurrence_department = row['departamentodeocurrencia']
 	let occurrence_department_code = (occurrence_department.split(' | ').length == 1) ? '' : occurrence_department.split(' | ').pop()
 	occurrence_department = occurrence_department.split(' | ').shift()
+
+	let occurrence_city = ''
+	Object.keys(row).forEach((key) => {
+		if(key.indexOf('municipiodeocurrencia') >= 0 && row[key] != 0) occurrence_city = row[key] 
+  	})
+	let occurrence_city_code = (occurrence_city.split(' | ').length == 1) ? '' : occurrence_city.split(' | ').pop()
+	occurrence_city = (occurrence_city.split(' | ').length == 1) ? occurrence_city : occurrence_city.split(' | ')[0]
+
+	let job = row['ocupación']
+	let job_code = (job.split(' | ').length == 1) ? '' : job.split(' | ').pop()
+	job = job.split(' | ').shift()
+
 	return [
 		{
 			text: '15',
@@ -156,13 +168,19 @@ function datos_basicos(row){
 			charSpace: 3.2
 		},
 		{
-			text: `${occurrence_department}/${capitalize(row['municipiodeocurrencia'])}`,
+			text: `${occurrence_department}/${occurrence_city}`,
 			x: 76,
 			y: 128
 		},
 		{
 			text: occurrence_department_code,
 			x: 123,
+			y: 127,
+			charSpace: 3.2
+		},
+		{
+			text: occurrence_city_code,
+			x: 139,
 			y: 127,
 			charSpace: 3.2
 		},
@@ -192,9 +210,17 @@ function datos_basicos(row){
 			y: 139
 		},
 		{
-			text: row['ocupación'],
-			x: 8,
-			y: 153
+			text: job,
+			x: 7.5,
+			y: 154.2,
+			limit: true,
+			limitChar: 50
+		},
+		{
+			text: job_code,
+			x: 49.9,
+			y: 149.5,
+			charSpace: 3.5
 		},
 		{
 			text: 'x',
@@ -204,7 +230,9 @@ function datos_basicos(row){
 		{
 			text: eps,
 			x: 141,
-			y: 154.5
+			y: 154.5,
+			limit: true,
+			limitChar: 50
 		},
 		{
 			text: eps_code,

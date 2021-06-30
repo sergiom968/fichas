@@ -583,3 +583,7 @@ function coordenate(type, data){
 			break
 	}
 }
+
+function limit(doc, text, limit){
+	return doc.splitTextToSize(text, limit)
+}
