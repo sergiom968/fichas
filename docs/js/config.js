@@ -394,7 +394,7 @@ function datos_basicos(row){
 }
 
 function ficha_346(row){
-	let department = row['departamento']
+	let department = row['departamento'] || ''
 	let department_code = (department.split(' | ').length == 1) ? '' : department.split(' | ').pop()
 	department = department.split(' | ').shift()
 	let sample = row['tipodemuestra'] || ''
