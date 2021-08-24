@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+	<title>Local Control</title>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	
+	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/uikit@3.4.1/dist/css/uikit.min.css' />
+	<style>
+		.switch {
+			position: relative;
+			display: inline-block;
+			width: 36px;
+			height: 22px;
+		}
+		
+		.switch input { 
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+		
+		.slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #ccc;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+		
+		.slider:before {
+			position: absolute;
+			content: '';
+			height: 16px;
+			width: 16px;
+			left: 3px;
+			bottom: 3px;
+			background-color: white;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+		
+		input:checked + .slider {
+			background-color: #2196F3;
+		}
+		
+		input:focus + .slider {
+			box-shadow: 0 0 1px #2196F3;
+		}
+		
+		input:checked + .slider:before {
+			-webkit-transform: translateX(15px);
+			-ms-transform: translateX(15px);
+			transform: translateX(15px);
+		}
+		
+		/* Rounded sliders */
+		.slider.round {
+			border-radius: 22px;
+		}
+		
+		.slider.round:before {
+			border-radius: 50%;
+		}
+	</style>
+</head>
+<body>
+	<!--Block Content-->
+	<div id='home' class='uk-container uk-container-small' uk-height-viewport>
+		<div class='uk-grid-0' uk-grid uk-height-viewport>
+			<div class='uk-width-1-1@m uk-flex uk-flex-middle'>
+				<div class='uk-card uk-card-default uk-width-1-1'>
+					<div class='uk-card-body'>
+						<form>
+							<div>
+								<div uk-grid>
+									<div class="uk-width-auto@m">
+										<ul class="uk-tab-left" uk-tab="connect: #component-tab-left; animation: uk-animation-fade">
+												<li><a href="#">Datos básicos</a></li>
+												<li><a href="#">Residencia</a></li>
+												<li><a href="#">EPS</a></li>
+												<li><a href="#">Ocurrencia</a></li>
+										</ul>
+									</div>
+									<div class="uk-width-expand@m">
+										<ul id="component-tab-left" class="uk-switcher uk-width-1-1">
+											<li>
+												<div uk-grid>
+													<div class="uk-width-1-2@s" v-for="field, key in basic_data" :key="key" v-if="field.conditional == null || conditional(field.conditional)">
+														<label class="uk-form-label" for="form-stacked-text">{{field.label}}</label>
+														<div class="uk-form-controls">
+															<input class="uk-input" id="form-stacked-text" v-if="field.type!='select'" v-model="form[field.model]" :type="field.type" :placeholder="field.placeholder || 'Digite un texto'">
+															<select class="uk-select" v-model="form[field.model]" @change="onchange(field.event)" v-else>
+																<option v-for="option, _key in field.options" :value="option.key" :key="_key">{{option.name}}</option>
+														  </select>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div uk-grid>
+													<div class="uk-width-1-2@s" v-for="field, key in residence" :key="key" v-if="field.conditional == null || conditional(field.conditional)">
+														<label class="uk-form-label" for="form-stacked-text">{{field.label}}</label>
+														<div class="uk-form-controls">
+															<input class="uk-input" id="form-stacked-text" v-if="field.type!='select'" v-model="form[field.model]" :type="field.type" :placeholder="field.placeholder || 'Digite un texto'">
+															<select class="uk-select" v-model="form[field.model]" @change="onchange(field.event)" v-else>
+																<option v-for="option, _key in field.options" :value="option.key" :key="_key">{{option.name}}</option>
+														  </select>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div uk-grid>
+													<div class="uk-width-1-2@s" v-for="field, key in EPS" :key="key" v-if="field.conditional == null || conditional(field.conditional)">
+														<label class="uk-form-label" for="form-stacked-text">{{field.label}}</label>
+														<div class="uk-form-controls">
+															<input class="uk-input" id="form-stacked-text" v-if="field.type!='select'" v-model="form[field.model]" :type="field.type" :placeholder="field.placeholder || 'Digite un texto'">
+															<select class="uk-select" v-model="form[field.model]" @change="onchange(field.event)" v-else>
+																<option v-for="option, _key in field.options" :value="option.key" :key="_key">{{option.name}}</option>
+														  </select>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div uk-grid>
+													<div class="uk-width-1-2@s" v-for="field, key in occurrence" :key="key" v-if="field.conditional == null || conditional(field.conditional)">
+														<label class="uk-form-label" for="form-stacked-text">{{field.label}}</label>
+														<div class="uk-form-controls">
+															<input class="uk-input" id="form-stacked-text" v-if="field.type!='select'" v-model="form[field.model]" :type="field.type" :placeholder="field.placeholder || 'Digite un texto'">
+															<select class="uk-select" v-model="form[field.model]" @change="onchange(field.event)" v-else>
+																<option v-for="option, _key in field.options" :value="option.key" :key="_key">{{option.name}}</option>
+														  </select>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+										<pre>{{test}}</pre>
+									</div>
+								</div>
+							</div>
+					  </form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--Block js-->
+	<script src='https://cdn.jsdelivr.net/npm/uikit@3.4.1/dist/js/uikit.min.js'></script>
+	<script src='https://cdn.jsdelivr.net/npm/uikit@3.4.1/dist/js/uikit-icons.min.js' ></script>
+	<script src='https://code.jquery.com/jquery-3.5.0.min.js'></script>
+	<script src='https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.2.0/jspdf.umd.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/img_datosBasicos.js"></script>
+	<script src="js/img_346.js"></script>
+	<script src="js/config.js"></script>
+	<script>
+		UIkit.tab('#uk-tab')
+		//
+		const home = new Vue({
+			el: '#home',
+			beforeCreate(){
+				const get_works = fetch('https://gsx2json.com/api?id=1jp6ZoOMNBaZrS6-vG9IEn08OnY2hAReBICJdA9Iy37w&columns=false&sheet=4').then(response => response.json())
+				const get_departments = fetch('https://gsx2json.com/api?id=1jp6ZoOMNBaZrS6-vG9IEn08OnY2hAReBICJdA9Iy37w&columns=false&sheet=2').then(response => response.json())
+				const get_EPS = fetch('https://gsx2json.com/api?id=1jp6ZoOMNBaZrS6-vG9IEn08OnY2hAReBICJdA9Iy37w&columns=false&sheet=5').then(response => response.json())
+				const get_cities = fetch('https://gsx2json.com/api?id=1jp6ZoOMNBaZrS6-vG9IEn08OnY2hAReBICJdA9Iy37w&columns=false&sheet=3').then(response => response.json())
+				Promise.all([get_works, get_departments, get_EPS, get_cities]).then((values) => {
+					this.works = values[0].rows || []
+					this.departments = values[1].rows || []
+					this.EAPB = values[2].rows || []
+					this.cities = values[3].rows || []
+				})
+			},
+			data: {
+				hola: 1,
+				holaa: 2,
+				test: [this.hola, this.holaa],
+				works: [],
+				departments: [],
+				cities: [],
+				EAPB: [],
+				basic_data: [
+					{
+						label: 'Nombres',
+						type: 'text',
+						model: 'names'
+					},
+					{
+						label: 'Apellidos',
+						type: 'text',
+						model: 'surnames'
+					},
+					{
+						label: 'Tipo de documento',
+						type: 'select',
+						options: [
+							{name: 'Cédula de ciudadania', key: 'CC'},
+							{name: 'Tarjeta de identidad', key: 'TI'},
+							{name: 'Cédula de extrangeria', key: 'CE'},
+							{name: 'Pasaporte', key: 'PA'}
+						],
+						model: 'documentType'
+					},
+					{
+						label: 'Número de documento',
+						type: 'number',
+						model: 'document'
+					},
+					{
+						label: 'Fecha de nacimiento',
+						type: 'date',
+						model: 'dateOfBirthDay'
+					},
+					{
+						label: 'Sexo',
+						type: 'select',
+						options: [
+							{name: 'Masculino', key: 'M'},
+							{name: 'Femenino', key: 'F'},
+							{name: 'Indeterminado', key: 'I'},
+						],
+						model: 'sex'
+					},
+					{
+						label: 'Teléfono',
+						type: 'number',
+						model: 'telephone'
+					},
+					{
+						label: 'Correo electrónico',
+						type: 'mail',
+						model: 'email'
+					},
+					{
+						label: 'País de nacimiento',
+						type: 'select',
+						options: [
+							{name: 'Colombia', key: 170},
+							{name: 'Otro', key: ''}
+						],
+						model: 'countryOfBrith'
+					},
+					{
+						label: 'Ocupación',
+						type: 'select',
+						options: [],
+						model: 'work'
+					},
+					{
+						label: 'Pertenencia étnica',
+						type: 'select',
+						options: [
+							{ name: 'Indígena', key: 0 },
+							{ name: 'Rom, gitano', key: 1 },
+							{ name: 'Raizal', key: 2 },
+							{ name: 'Palenquero', key: 3 },
+							{ name: 'Negro, mulato, afrocolombiano', key: 4 },
+							{ name: 'Otro', key: 5 },
+						],
+						model: 'ethnicity'
+					},
+					{
+						label: 'Grupo Poblacional',
+						type: 'select',
+						options: [
+							{ name: 'Discapacitados', key: 0 },
+							{ name: 'Migrantes', key: 1 },
+							{ name: 'Gestantes', key: 2 },
+							{ name: 'Población a cargo del ICBF', key: 3 },
+							{ name: 'Desmovilizados', key: 4 },
+							{ name: 'Victimas de violencia armada', key: 5 },
+							{ name: 'Desplazados', key: 6 },
+							{ name: 'Carcelarios', key: 7 },
+							{ name: 'Indigenas', key: 8 },
+							{ name: 'Madres comunitarias', key: 9 },
+							{ name: 'Centros psiquiátricos', key: 10 },
+							{ name: 'Otros', key: 11 }
+						],
+						model: 'poblationalGroup'
+					},
+					{
+						label: 'Semanas de gestación',
+						type: 'number',
+						model: 'gestationWeeks',
+						conditional: 'gestationWeeks'
+					},
+				],
+				residence: [
+					{
+						label: 'País de residencia',
+						type: 'select',
+						options: [
+							{name: 'Colombia', key: 170},
+							{name: 'Otro', key: ''}
+						],
+						model: 'countryOfResidence'
+					},
+					{
+						label: 'Departamento de residencia',
+						type: 'select',
+						options: [],
+						model: 'departmentOfResidence',
+						conditional: 'countryOfResidence',
+						event: 'change_departmentOfResidence'
+					},
+					{
+						label: 'Ciudad de residencia',
+						type: 'select',
+						options: [],
+						model: 'cityOfResidence',
+						conditional: 'countryOfResidence'
+					},
+					{
+						label: 'Dirección de residencia',
+						type: 'text',
+						model: 'address'
+					},
+					{
+						label: 'Estrato',
+						type: 'select',
+						options: [
+							{ name: 1, key:1 },
+							{ name: 2, key:2 },
+							{ name: 3, key:3 },
+							{ name: 4, key:4 },
+							{ name: 5, key:5 },
+							{ name: 6, key:6 }
+						],
+						model: 'stratum'
+					},
+				],
+				EPS: [
+					{
+						label: 'Tipo de régimen',
+						type: 'select',
+						options: [
+							{ name: 'Excepción', key: 0},
+							{ name: 'Contributivo', key: 1},
+							{ name: 'No asegurado', key: 2},
+							{ name: 'Especial', key: 3},
+							{ name: 'Subsidiado', key: 4},
+							{ name: 'Indeterminado/pendiente', key: 5}
+						],
+						model: 'regime'
+					},
+					{
+						label: 'EPS',
+						type: 'select',
+						options: [],
+						model: 'eps'
+					},
+				],
+				occurrence: [
+					{
+						label: 'Pais de Ocurrencia',
+						type: 'select',
+						options: [
+							{ name: 'Colombia', key: 170 },
+							{ name: 'Otro', key: '' }
+						],
+						model: 'countryOfOccurrence'
+					},
+					{
+						label: 'Departamento de Ocurrencia',
+						type: 'select',
+						options: [],
+						model: 'departmentOfOccurrence',
+						conditional: 'countryOfOccurrence',
+						event: 'change_departmentOfOccurrence'
+					},
+					{
+						label: 'Municipio de Ocurrencia',
+						type: 'select',
+						options: [],
+						model: 'cityOfOccurrence',
+						conditional: 'countryOfOccurrence'
+					},
+					{
+						label: 'Área de ocurrencia',
+						type: 'select',
+						options: [
+							{ name: 'Cabecera municipal', key: 0 },
+							{ name: 'Centro poblado', key: 1 },
+							{ name: 'Rural disperso', key: 2 }
+						],
+						model: 'areaOfOccurrence'
+					},
+					{
+						label: 'Localidad',
+						type: 'text',
+						model: 'locality',
+						conditional: 'areaOfOccurrence_locality'
+					},
+					{
+						label: 'Barrio',
+						type: 'text',
+						model: 'neighborhood',
+						conditional: 'areaOfOccurrence_neighborhood'
+					},
+					{
+						label: 'Vereda',
+						type: 'text',
+						model: 'sidewalk',
+						conditional: 'areaOfOccurrence_sidewalk',
+						test: () => {
+							console.log('Holo')
+						}
+					}
+				],
+				form: {
+					names: null,
+					surnames: null,
+					documentType: null,
+					document: null,
+					dateOfBirthDay: null,
+					sex: null,
+					telephone: null,
+					countryOfBrith: null,
+					work: null,
+					ethnicity: null,
+					poblationalGroup: null,
+					gestationWeeks: null,
+					countryOfResidence: null,
+					departmentOfResidence: null,
+					cityOfResidence: null,
+					stratum: null,
+					regime: null,
+					countryOfOccurrence: null,
+					departmentOfOccurrence: null,
+					cityOfOccurrence: null,
+					areaOfOccurrence: null,
+					locality: null,
+					neighborhood: null,
+					sidewalk: null
+				}
+			},
+			methods: {
+				change_departmentOfResidence(){
+					const _cities = this.cities.filter(city => city.department === this.form.departmentOfResidence)
+					let _index = null
+					this.residence.forEach((d, index) => { if(d.model === 'cityOfResidence') _index = index })
+					this.residence[_index].options = _cities
+				},
+				change_departmentOfOccurrence(){
+					const _cities = this.cities.filter(city => city.department === this.form.departmentOfOccurrence)
+					let _index = null
+					this.occurrence.forEach((d, index) => { if(d.model === 'cityOfOccurrence') _index = index })
+					this.occurrence[_index].options = _cities
+				},
+				conditional(condition){
+					switch (condition){
+						case 'countryOfResidence':
+							if(this.form.countryOfResidence === 170) return true
+							return false
+							break
+
+						case 'countryOfOccurrence':
+							if(this.form.countryOfOccurrence === 170) return true
+							return false
+							break
+
+						case 'areaOfOccurrence_neighborhood':
+							if(this.form.areaOfOccurrence == 0 || this.areaOfOccurrence == 1) return true
+							return false
+							break
+						
+						case 'areaOfOccurrence_sidewalk':
+							if(this.form.areaOfOccurrence == 2) return true
+							return false
+							break
+						
+						case 'areaOfOccurrence_locality':
+							if(this.form.departmentOfOccurrence == 11 && this.form.cityOfOccurrence == 1) return true
+							return false
+							break
+
+						case 'gestationWeeks':
+							if(this.form.poblationalGroup === 2) return true
+							return false
+							break
+					}
+				},
+				onchange(event){
+					if(event == undefined) return false
+					this[event]()
+				}
+			},
+			watch: {
+				works: function() {
+					let _index = null
+					this.basic_data.forEach((d, index) => { if(d.model === 'work') _workIndex = index })
+					this.basic_data[_workIndex].options = this.works
+				},
+				departments: function() {
+					let _index = null
+					this.residence.forEach((d, index) => { if(d.model === 'departmentOfResidence') _index = index })
+					this.residence[_index].options = this.departments
+					this.occurrence.forEach((d, index) => { if(d.model === 'departmentOfOccurrence') _index = index })
+					this.occurrence[_index].options = this.departments
+				},
+				EAPB: function() {
+					let _index = null
+					this.EPS.forEach((d, index) => { if(d.model === 'eps') _index = index })
+					this.EPS[_index].options = this.EAPB
+				}
+			}
+		})
+	</script>
+</body>
+</html>

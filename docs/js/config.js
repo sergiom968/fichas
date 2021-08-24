@@ -1,35 +1,34 @@
 function datos_basicos(row){
-	console.log(row)
-	let eps = row['eps']
+	let eps = row['EPS']
 	let eps_code = (eps.split(' | ').length == 1) ? '' : eps.split(' | ').pop()
 	eps = eps.split(' | ').shift()
-	let rise_country = row['paísdeorigen'].toString()
+	let rise_country = row['País de origen'].toString()
 	let rise_country_code = (rise_country.toLowerCase() == 'colombia') ? '170' : ''
-	let residence_country = row['paísderesidencia'].toString()
+	let residence_country = row['País de residencia'].toString()
 	let residence_country_code = (rise_country.toLowerCase() == 'colombia') ? '170' : ''
-	let occurrence_country = row['paísdeocurrencia'].toString()
+	let occurrence_country = row['País de ocurrencia'].toString()
 	let occurrence_country_code = (occurrence_country.toLowerCase() == 'colombia') ? '170' : ''
 	let residence_city = ''
 	Object.keys(row).forEach((key) => {
-		if(key.indexOf('municipioderesidencia') >= 0 && row[key] != 0) residence_city = row[key] 
+		if(key.indexOf('Municipio de residencia') >= 0 && row[key] != 0) residence_city = row[key] 
   	})
 	let residence_city_code = (residence_city.split(' | ').length == 1) ? '' : residence_city.split(' | ').pop()
 	residence_city = (residence_city.split(' | ').length == 1) ? residence_city : residence_city.split(' | ')[0]
-	let residence_department = row['departamentoderesidencia']
+	let residence_department = row['Departamento de residencia']
 	let residence_department_code = (residence_department.split(' | ').length == 1) ? '' : residence_department.split(' | ').pop()
 	residence_department = residence_department.split(' | ').shift()
-	let occurrence_department = row['departamentodeocurrencia']
+	let occurrence_department = row['Departamento de ocurrencia']
 	let occurrence_department_code = (occurrence_department.split(' | ').length == 1) ? '' : occurrence_department.split(' | ').pop()
 	occurrence_department = occurrence_department.split(' | ').shift()
 
 	let occurrence_city = ''
 	Object.keys(row).forEach((key) => {
-		if(key.indexOf('municipiodeocurrencia') >= 0 && row[key] != 0) occurrence_city = row[key] 
+		if(key.indexOf('Municipio de ocurrencia') >= 0 && row[key] != 0) occurrence_city = row[key] 
   	})
 	let occurrence_city_code = (occurrence_city.split(' | ').length == 1) ? '' : occurrence_city.split(' | ').pop()
 	occurrence_city = (occurrence_city.split(' | ').length == 1) ? occurrence_city : occurrence_city.split(' | ')[0]
 
-	let job = row['ocupación']
+	let job = row['Ocupación']
 	let job_code = (job.split(' | ').length == 1) ? '' : job.split(' | ').pop()
 	job = job.split(' | ').shift()
 
@@ -64,83 +63,83 @@ function datos_basicos(row){
 			y: 58
 		},
 		{
-			text: row['seleccionefichaadiligenciar'].split(' - ').pop(),
+			text: row['Seleccione ficha a diligenciar'].split(' - ').pop(),
 			x: 8,
 			y: 69
 		},
 		{
-			text: row['seleccionefichaadiligenciar'].split(' - ').shift(),
+			text: row['Seleccione ficha a diligenciar'].split(' - ').shift(),
 			x: 105,
 			y: 68,
 			charSpace: 3.5
 		},
 		{
-			text: formatDate(row['marcatemporal'].split(' ').shift()).format('DD'),
+			text: formatDate(row['Marca temporal'].split(' ').shift()).format('DD'),
 			x: 128.5,
 			y: 68,
 			charSpace: 3.5
 		},
 		{
-			text: formatDate(row['marcatemporal'].split(' ').shift()).format('MM'),
+			text: formatDate(row['Marca temporal'].split(' ').shift()).format('MM'),
 			x: 144.5,
 			y: 68,
 			charSpace: 3.5
 		},
 		{
-			text: formatDate(row['marcatemporal'].split(' ').shift()).format('yyyy'),
+			text: formatDate(row['Marca temporal'].split(' ').shift()).format('yyyy'),
 			x: 160,
 			y: 68,
 			charSpace: 3.5
 		},
 		{
 			text: 'x',
-			x: coordenate(1, documentType(row['tipodedocumento'])).x,
-			y: coordenate(1, documentType(row['tipodedocumento'])).y
+			x: coordenate(1, documentType(row['Tipo de Documento'])).x,
+			y: coordenate(1, documentType(row['Tipo de Documento'])).y
 		},
 		{
-			text: row['númerodeidentificación'].toString(),
+			text: row['Número de identificación'].toString(),
 			x: 136,
 			y: 88
 		},
 		{
-			text: `${row['nombres']} ${row['apellidos']}`,
+			text: `${row['Nombres']} ${row['Apellidos']}`,
 			x: 8,
 			y: 102
 		},
 		{
-			text: row['teléfono'].toString(),
+			text: row['Teléfono'].toString(),
 			x: 165,
 			y: 102
 		},
 		{
-			text: row['edad'].toString(),
+			text: row['Edad'].toString(),
 			x: 69,
 			y: 115.5
 		},
 		{
 			text: 'x',
-			x: coordenate(2, row['unidadmedidadeedad']).x,
-			y: coordenate(2, row['unidadmedidadeedad']).y
+			x: coordenate(2, row['Unidad medida de edad']).x,
+			y: coordenate(2, row['Unidad medida de edad']).y
 		},
 		{
 			text: 'x',
-			x: coordenate(3, row['sexo']).x,
-			y: coordenate(3, row['sexo']).y
+			x: coordenate(3, row['Sexo']).x,
+			y: coordenate(3, row['Sexo']).y
 		},
 		{
-			text: formatDate(row['fechadenacimiento']).format('DD'),
+			text: formatDate(row['Fecha de Nacimiento']).format('DD'),
 			x: 9,
 			y: 113.8,
 			charSpace: 3.5
 		},
 		{
-			text: formatDate(row['fechadenacimiento']).format('MM'),
+			text: formatDate(row['Fecha de Nacimiento']).format('MM'),
 			x: 24.5,
 			y: 113.8,
 			charSpace: 3.5
 		},
 		{
-			text: formatDate(row['fechadenacimiento']).format('yyyy'),
+			text: formatDate(row['Fecha de Nacimiento']).format('yyyy'),
 			x: 40,
 			y: 113.8,
 			charSpace: 3.5
@@ -186,26 +185,26 @@ function datos_basicos(row){
 		},
 		{
 			text: 'x',
-			x: coordenate(4, row['áreadeocurrencia']).x,
-			y: coordenate(4, row['áreadeocurrencia']).y
+			x: coordenate(4, row['Área de ocurrencia']).x,
+			y: coordenate(4, row['Área de ocurrencia']).y
 		},
 		{
-			text: row['localidad'],
+			text: row['Localidad'],
 			x: 8,
 			y: 139
 		},
 		{
-			text: row['barrio'],
+			text: row['Barrio'],
 			x: 66,
 			y: 139
 		},
 		{
-			text: row['áreadeocurrencia'],
+			text: row['Área de ocurrencia'],
 			x: 110,
 			y: 139
 		},
 		{
-			text: row['vereda'],
+			text: row['Vereda'],
 			x: 167,
 			y: 139
 		},
@@ -224,8 +223,8 @@ function datos_basicos(row){
 		},
 		{
 			text: 'x',
-			x: coordenate(5, row['régimen']).x,
-			y: coordenate(5, row['régimen']).y
+			x: coordenate(5, row['Régimen']).x,
+			y: coordenate(5, row['Régimen']).y
 		},
 		{
 			text: eps,
@@ -242,11 +241,11 @@ function datos_basicos(row){
 		},
 		{
 			text: 'x',
-			x: coordenate(6, row['pertenenciaétnica']).x,
-			y: coordenate(6, row['pertenenciaétnica']).y
+			x: coordenate(6, row['Pertenencia étnica']).x,
+			y: coordenate(6, row['Pertenencia étnica']).y
 		},
 		{
-			text: row['estrato'].toString(),
+			text: row['Estrato'].toString(),
 			x: 194,
 			y: 162
 		},
@@ -279,88 +278,88 @@ function datos_basicos(row){
 			charSpace: 3.5
 		},
 		{
-			text: row['direcciónderesidencia'],
+			text: row['Dirección de residencia'],
 			x: 44,
 			y: 203
 		},
 		{
-			text: formatDate(row['marcatemporal'].split(' ').shift()).format('DD'),
+			text: formatDate(row['Marca temporal'].split(' ').shift()).format('DD'),
 			x: 7.5,
 			y: 216.5,
 			charSpace: 3.5
 		},
 		{
-			text: formatDate(row['marcatemporal'].split(' ').shift()).format('MM'),
+			text: formatDate(row['Marca temporal'].split(' ').shift()).format('MM'),
 			x: 23.5,
 			y: 216.5,
 			charSpace: 3.5
 		},
 		{
-			text: formatDate(row['marcatemporal'].split(' ').shift()).format('yyyy'),
+			text: formatDate(row['Marca temporal'].split(' ').shift()).format('yyyy'),
 			x: 39,
 			y: 216.5,
 			charSpace: 3.5
 		},
 		{
-			text: formatDate(row['fechadeiniciodelossíntomas']).format('DD'),
+			text: formatDate(row['Fecha de inicio de los síntomas']).format('DD'),
 			x: 69.5,
 			y: 216.5,
 			charSpace: 3.5
 		},
 		{
-			text: formatDate(row['fechadeiniciodelossíntomas']).format('MM'),
+			text: formatDate(row['Fecha de inicio de los síntomas']).format('MM'),
 			x: 85.5,
 			y: 216.5,
 			charSpace: 3.5
 		},
 		{
-			text: formatDate(row['fechadeiniciodelossíntomas']).format('yyyy'),
+			text: formatDate(row['Fecha de inicio de los síntomas']).format('yyyy'),
 			x: 101,
 			y: 216.5,
 			charSpace: 3.5
 		},
 		{
 			text: 'x',
-			x: coordenate(7, row['clasificacióndelcaso']).x,
-			y: coordenate(7, row['clasificacióndelcaso']).y
+			x: coordenate(7, row['Clasificación del caso']).x,
+			y: coordenate(7, row['Clasificación del caso']).y
 		},
 		{
 			text: 'x',
-			x: coordenate(9, row['hospitalizado']).x,
-			y: coordenate(9, row['hospitalizado']).y
+			x: coordenate(9, row['Hospitalizado']).x,
+			y: coordenate(9, row['Hospitalizado']).y
 		},
 		{
-			text: (row['fechadehospitalización']) ? formatDate(row['fechadehospitalización']).format('DD') : '',
+			text: (row['Fecha de hospitalización']) ? formatDate(row['Fecha de hospitalización']).format('DD') : '',
 			x: 7.5,
 			y: 233,
 			charSpace: 3.5
 		},
 		{
-			text: (row['fechadehospitalización']) ? formatDate(row['fechadehospitalización']).format('MM') : '',
+			text: (row['Fecha de hospitalización']) ? formatDate(row['Fecha de hospitalización']).format('MM') : '',
 			x: 23.5,
 			y: 233,
 			charSpace: 3.5
 		},
 		{
-			text: (row['fechadehospitalización']) ? formatDate(row['fechadehospitalización']).format('yyyy') : '',
+			text: (row['Fecha de hospitalización']) ? formatDate(row['Fecha de hospitalización']).format('yyyy') : '',
 			x: 39,
 			y: 233,
 			charSpace: 3.5
 		},
 		{
-			text: (row['fechadedefunción']) ? formatDate(row['fechadedefunción']).format('DD') : '',
+			text: (row['Fecha de defunción']) ? formatDate(row['Fecha de defunción']).format('DD') : '',
 			x: 94.5,
 			y: 233,
 			charSpace: 3.5
 		},
 		{
-			text: (row['fechadedefunción']) ? formatDate(row['fechadedefunción']).format('MM') : '',
+			text: (row['Fecha de defunción']) ? formatDate(row['Fecha de defunción']).format('MM') : '',
 			x: 109.5,
 			y: 233,
 			charSpace: 3.5
 		},
 		{
-			text: (row['fechadedefunción']) ? formatDate(row['fechadedefunción']).format('yyyy') : '',
+			text: (row['Fecha de defunción']) ? formatDate(row['Fecha de defunción']).format('yyyy') : '',
 			x: 125,
 			y: 233,
 			charSpace: 3.5
@@ -371,22 +370,22 @@ function datos_basicos(row){
 			y: 228
 		},
 		{
-			text: optional(row['ncertificadodedefunción']).toString(),
+			text: optional(row['N° Certificado de defunción']).toString(),
 			x: 150,
 			y: 235
 		},
 		{
-			text: optional(row['causabásicadelamuerte']),
+			text: optional(row['Causa básica de la muerte']),
 			x: 8,
 			y: 246
 		},
 		{
-			text: row['nombredequiendiligencialaficha'],
+			text: row['Nombre de quien diligencia la ficha'],
 			x: 84,
 			y: 246
 		},
 		{
-			text: row['teléfonodequiendiligencialaficha'].toString(),
+			text: row['Teléfono de quien diligencia la ficha'].toString(),
 			x: 175,
 			y: 246
 		}
@@ -394,48 +393,48 @@ function datos_basicos(row){
 }
 
 function ficha_346(row){
-	let department = row['departamento'] || ''
+	let department = row['Departamento'] || ''
 	let department_code = (department.split(' | ').length == 1) ? '' : department.split(' | ').pop()
 	department = department.split(' | ').shift()
-	let sample = row['tipodemuestra'] || ''
+	let sample = row['Tipo de muestra'] || ''
 	let sample_code = (sample.split(' | ').length == 1) ? '' : sample.split(' | ').pop()
-	let proof = row['tipodepruebatomada'] || ''
+	let proof = row['Tipo de prueba tomada'] || ''
 	let proof_code = (proof.split(' | ').length == 1) ? '' : proof.split(' | ').pop()
-	let outcome = row['resultado'] || ''
+	let outcome = row['Resultado'] || ''
 	let outcome_code = (outcome.split(' | ').length == 1) ? '' : outcome.split(' | ').pop()
 	let data = [
 		{
-			text: `${row['nombres']} ${row['apellidos']}`,
+			text: `${row['Nombres']} ${row['Apellidos']}`,
 			x: 10,
 			y: 53
 		},
 		{
-			text: documentType(row['tipodedocumento']),
+			text: documentType(row['Tipo de Documento']),
 			x: 100,
 			y: 53
 		},
 		{
-			text: row['númerodeidentificación'].toString(),
+			text: row['Número de identificación'].toString(),
 			x: 120,
 			y: 53
 		},
 		{
 			text: 'x',
-			x: coordenate(10, row['viajóaáreasdecirculacióndelvirus']).x,
-			y: coordenate(10, row['viajóaáreasdecirculacióndelvirus']).y
+			x: coordenate(10, row['¿Viajó a áreas de circulación del virus?']).x,
+			y: coordenate(10, row['¿Viajó a áreas de circulación del virus?']).y
 		},
 		{
-			text: (optional(row['lugardeviaje'] != '')) ? 'x' : '',
-			x: (optional(row['lugardeviaje'] != '')) ? coordenate(11, row['lugardeviaje']).x : 0,
-			y: (optional(row['lugardeviaje'] != '')) ? coordenate(11, row['lugardeviaje']).y : 0
+			text: (optional(row['Lugar de viaje'] != '')) ? 'x' : '',
+			x: (optional(row['Lugar de viaje'] != '')) ? coordenate(11, row['Lugar de viaje']).x : 0,
+			y: (optional(row['Lugar de viaje'] != '')) ? coordenate(11, row['Lugar de viaje']).y : 0
 		},
 		{
-			text: (optional(row['lugardeviaje'] != '')) ? 'x' : '',
-			x: (optional(row['lugardeviaje'] != '')) ? coordenate(12, row['lugardeviaje']).x : 0,
-			y: (optional(row['lugardeviaje'] != '')) ? coordenate(12, row['lugardeviaje']).y : 0
+			text: (optional(row['Lugar de viaje'] != '')) ? 'x' : '',
+			x: (optional(row['Lugar de viaje'] != '')) ? coordenate(12, row['Lugar de viaje']).x : 0,
+			y: (optional(row['Lugar de viaje'] != '')) ? coordenate(12, row['Lugar de viaje']).y : 0
 		},
 		{
-			text: (optional(department) != '') ? `${department}/${row['municipio']}` : '',
+			text: (optional(department) != '') ? `${department}/${row['Municipio']}` : '',
 			x: 120,
 			y: 75.5
 		},
@@ -447,45 +446,45 @@ function ficha_346(row){
 
 		},
 		{
-			text: optional(row['país']),
+			text: optional(row['País']),
 			x: 120,
 			y: 88.3
 		},
 		{
 			text: 'x',
-			x: coordenate(13, row['tuvocontactoestrechoenlosúltimos14díasconuncasoprobableoconfirmadoconinfecciónrespiratoriaagudagraveporvirusnuevo']).x,
-			y: coordenate(13, row['tuvocontactoestrechoenlosúltimos14díasconuncasoprobableoconfirmadoconinfecciónrespiratoriaagudagraveporvirusnuevo']).y
+			x: coordenate(13, row['¿Tuvo contacto estrecho en los últimos 14 días con un caso probable o confirmado con infección respiratoria aguda grave por virus nuevo?']).x,
+			y: coordenate(13, row['¿Tuvo contacto estrecho en los últimos 14 días con un caso probable o confirmado con infección respiratoria aguda grave por virus nuevo?']).y
 		},
 		{
-			text: (optional(row['hasidovacunadocontralacovid-19'] != '')) ? 'x' : '',
-			x: (optional(row['hasidovacunadocontralacovid-19'] != '')) ? coordenate(17, row['hasidovacunadocontralacovid-19']).x : 0,
-			y: (optional(row['hasidovacunadocontralacovid-19'] != '')) ? coordenate(17, row['hasidovacunadocontralacovid-19']).y : 0
+			text: (optional(row['¿Ha sido vacunado contra la COVID-19?'] != '' && row['¿Ha sido vacunado contra la COVID-19?'] != undefined)) ? 'x' : '',
+			x: (optional(row['¿Ha sido vacunado contra la COVID-19?'] != '' && row['¿Ha sido vacunado contra la COVID-19?'] != undefined)) ? coordenate(17, row['¿Ha sido vacunado contra la COVID-19?']).x : 0,
+			y: (optional(row['¿Ha sido vacunado contra la COVID-19?'] != '' && row['¿Ha sido vacunado contra la COVID-19?'] != undefined)) ? coordenate(17, row['¿Ha sido vacunado contra la COVID-19?']).y : 0
 		},
 		{
-			text: (row['númerodedosis'] === 0) ? '' : row['númerodedosis'].toString(),
+			text: (row['Número de dosis'] === 0 || row['Número de dosis'] == undefined) ? '' : row['Número de dosis'].toString(),
 			x: 82.5,
 			y: 237.5
 		},
 		{
-			text: (row['fechadeúltimadosis']) ? formatDate(row['fechadeúltimadosis']).format('DD') : '',
+			text: (row['Fecha de última dosis']) ? formatDate(row['Fecha de última dosis']).format('DD') : '',
 			x: 100,
 			y: 237.5,
 			charSpace: 4.5
 		},
 		{
-			text: (row['fechadeúltimadosis']) ? formatDate(row['fechadeúltimadosis']).format('MM') : '',
+			text: (row['Fecha de última dosis']) ? formatDate(row['Fecha de última dosis']).format('MM') : '',
 			x: 117,
 			y: 237.5,
 			charSpace: 4.5
 		},
 		{
-			text: (row['fechadeúltimadosis']) ? formatDate(row['fechadeúltimadosis']).format('YYYY') : '',
+			text: (row['Fecha de última dosis']) ? formatDate(row['Fecha de última dosis']).format('YYYY') : '',
 			x: 133.5,
 			y: 237.5,
 			charSpace: 5
 		},
 		{
-			text: (row['nombredelavacuna'] === 0) ? '' : row['nombredelavacuna'].toString(),
+			text: (row['Nombre de la Vacuna'] === 0 || row['Nombre de la Vacuna'] == undefined) ? '' : row['Nombre de la Vacuna'].toString(),
 			x: 166,
 			y: 237.5
 		},
@@ -510,19 +509,19 @@ function ficha_346(row){
 			y: 270.2
 		},
 		{
-			text: (row['fechadetomadelamuestra']) ? formatDate(row['fechadetomadelamuestra']).format('DD.MM.YYYY') : '',
+			text: (row['Fecha de toma de la muestra']) ? formatDate(row['Fecha de toma de la muestra']).format('DD.MM.YYYY') : '',
 			x: 13.2,
 			y: 270.2,
 			charSpace: 1.75
 		}
 	]
 	let other = ''
-	row['reportaalgunodelossiguientessíntomas'].split(',').forEach((item, index) => {
+	row['¿Reporta alguno de los siguientes síntomas?'].split(',').forEach((item, index) => {
 		if(coordenate(14, item.trim()).default) {
 			console.log(item)
 			other += item
 			console.log(other)
-			if(row['reportaalgunodelossiguientessíntomas'].split(',').length != index+1){
+			if(row['¿Reporta alguno de los siguientes síntomas?'].split(',').length != index+1){
 				other += ', '
 			} else {
 				data.push({
@@ -545,12 +544,12 @@ function ficha_346(row){
 		}
 	})
 	other = ''
-	row['reportaalgunodelossiguientesantecedentesclínicos'].split(',').forEach((item, index) => {
+	row['¿Reporta alguno de los siguientes antecedentes clínicos?'].split(',').forEach((item, index) => {
 		if(coordenate(15, item.trim()).default) {
 			console.log(item)
 			other += item
 			console.log(other)
-			if(row['reportaalgunodelossiguientesantecedentesclínicos'].split(',').length != index+1){
+			if(row['¿Reporta alguno de los siguientes antecedentes clínicos?'].split(',').length != index+1){
 				other += ', '
 			} else {
 				data.push({

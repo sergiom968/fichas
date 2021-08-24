@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='es'>
 <head>
-	<title>Local Control</title>
+	<title>Búsqueda de fichas de notificación - HSFVL</title>
 	<meta charset='UTF-8'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	
@@ -142,7 +142,7 @@
 			el: '#home',
 			created(){
 				request({
-					url: 'https://gsx2json.com/api?id=14cp7ekvPcSoS_hQkSJ_9BTekfS3wjCi-SdMEikXTz1U&sheet=1'
+					url: 'https://gsx2json.com/api?id=14cp7ekvPcSoS_hQkSJ_9BTekfS3wjCi-SdMEikXTz1U&api_key=AIzaSyDC68kyb-o-6mS77yimk1W-qExN_nXJZjk'//'https://gsx2json.com/api?id=14cp7ekvPcSoS_hQkSJ_9BTekfS3wjCi-SdMEikXTz1U&sheet=1'
 				}, (data) => {
 					data.rows.forEach((row) => {
 						this.data.push(JSON.stringify(row))
@@ -163,15 +163,15 @@
 					this.user = {}
 					this.data.forEach((row, index) => {
 						const json = JSON.parse(row)
-						if (json.númerodeidentificación == this.document){
+						if (json['Número de identificación'] == this.document){
 							if(!this.user.ducument) this.user = {
-								name: `${json['nombres']} ${json['apellidos']}`,
-								document: `${documentType(json['tipodedocumento'])} - ${json['númerodeidentificación']}`
+								name: `${json['Nombres']} ${json['Apellidos']}`,
+								document: `${documentType(json['Tipo de documento'])} - ${json['Número de identificación']}`
 							}
-							const data = formatDate(json['marcatemporal'].split(' ').shift())
+							const data = formatDate(json['Marca temporal'].split(' ').shift())
 							this.filter.push({
 								date: data.format('DD/MM/yyyy'),
-								event: json['seleccionefichaadiligenciar'],
+								event: json['Seleccione ficha a diligenciar'],
 								index
 							})
 						}
@@ -199,11 +199,12 @@
 					datos_basicos(_data).forEach((item) => {
 						let _limit = limit(doc, item.text, item.limitChar)
 						let text = (item.limit) ? `${_limit[0]}${(_limit.length > 1) ? '...' : ''}` : item.text
-						doc.text(text, item.x, item.y, {
+						console.log(text)
+						doc.text(text || '', item.x, item.y, {
 							charSpace: item.charSpace || 0,
 						})
 					})
-					if(_data['seleccionefichaadiligenciar'].split(' - ').shift() == '346'){
+					if(_data['Seleccione ficha a diligenciar'].split(' - ').shift() == '346'){
 						doc.addPage([216, 330], 'p')
 						doc.addImage(_346, 'JPEG', 0, 0, 216, 330)
 						ficha_346(_data).forEach((item) => {

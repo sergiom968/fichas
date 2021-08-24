@@ -45,7 +45,8 @@ function documentType(type){
 }
 
 function optional(entry){
-	if(entry === 0) return ''
+	console.log(entry)
+	if(entry === 0 || entry == undefined) return ''
 	else return entry
 }
 
@@ -62,6 +63,7 @@ function formatDate(date){
 }
 
 function coordenate(type, data){
+	console.log(type, data)
 	switch (type){
 		case 1: 
 			switch (data){
