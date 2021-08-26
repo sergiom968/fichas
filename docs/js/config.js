@@ -518,9 +518,7 @@ function ficha_346(row){
 	let other = ''
 	row['¿Reporta alguno de los siguientes síntomas?'].split(',').forEach((item, index) => {
 		if(coordenate(14, item.trim()).default) {
-			console.log(item)
 			other += item
-			console.log(other)
 			if(row['¿Reporta alguno de los siguientes síntomas?'].split(',').length != index+1){
 				other += ', '
 			} else {
@@ -546,9 +544,7 @@ function ficha_346(row){
 	other = ''
 	row['¿Reporta alguno de los siguientes antecedentes clínicos?'].split(',').forEach((item, index) => {
 		if(coordenate(15, item.trim()).default) {
-			console.log(item)
 			other += item
-			console.log(other)
 			if(row['¿Reporta alguno de los siguientes antecedentes clínicos?'].split(',').length != index+1){
 				other += ', '
 			} else {

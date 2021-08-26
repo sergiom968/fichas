@@ -75,7 +75,11 @@
 			<div class='uk-width-1-4@m'></div>
 			<div class='uk-width-1-2@m uk-flex uk-flex-middle'>
 				<div class='uk-card uk-card-default uk-width-1-1'>
-					<div class='uk-card-body'>
+					<div class='uk-card-body' v-if="!loaded">
+						<h2 style="text-align: center">Cargando ...</h2>
+						<div style="margin-left: 40%;" uk-spinner="ratio: 2"></div>
+					</div>
+					<div class='uk-card-body' v-else>
 						<ul id='uk-tab' class='uk-flex-center' uk-tab>
 							<li><a href='#'>Búsqueda</a></li>
 							<li><a>Resultados</a></li>
@@ -138,14 +142,19 @@
 	<script>
 		UIkit.tab('#uk-tab')
 		const { jsPDF } = window.jspdf
+		const API_KEY = 'AIzaSyDC68kyb-o-6mS77yimk1W-qExN_nXJZjk'
+		const SPREADSHEET_ID = '14cp7ekvPcSoS_hQkSJ_9BTekfS3wjCi-SdMEikXTz1U'
+		const SHEET_NAME = 'Respuestas'
+		const DOMAIN = 'gsx2json.com'
 		const home = new Vue({
 			el: '#home',
 			created(){
 				request({
-					url: 'https://gsx2json.com/api?id=14cp7ekvPcSoS_hQkSJ_9BTekfS3wjCi-SdMEikXTz1U&api_key=AIzaSyDC68kyb-o-6mS77yimk1W-qExN_nXJZjk'//'https://gsx2json.com/api?id=14cp7ekvPcSoS_hQkSJ_9BTekfS3wjCi-SdMEikXTz1U&sheet=1'
+					url: `https://${DOMAIN}/api?id=${SPREADSHEET_ID}&api_key=${API_KEY}&sheet=${SHEET_NAME}`
 				}, (data) => {
 					data.rows.forEach((row) => {
 						this.data.push(JSON.stringify(row))
+						this.loaded = true
 					})
 					console.log('Ready')
 				})
@@ -155,7 +164,8 @@
 				event: null,
 				filter: [],
 				data: [],
-				user: {}
+				user: {},
+				loaded: false
 			},
 			methods: {
 				search(){
@@ -199,7 +209,6 @@
 					datos_basicos(_data).forEach((item) => {
 						let _limit = limit(doc, item.text, item.limitChar)
 						let text = (item.limit) ? `${_limit[0]}${(_limit.length > 1) ? '...' : ''}` : item.text
-						console.log(text)
 						doc.text(text || '', item.x, item.y, {
 							charSpace: item.charSpace || 0,
 						})
